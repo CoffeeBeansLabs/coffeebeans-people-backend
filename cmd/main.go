@@ -1,7 +1,17 @@
 package main
 
-import "fmt"
+import (
+	"coffeebeans-people-backend/config"
+	"context"
+	"fmt"
+)
 
 func main()  {
-	fmt.Println("Application loaded successfully")
+	ctx := context.Background()
+	ctx, cancel := context.WithCancel(ctx)
+	defer cancel()
+
+	appConfig := config.GetAppConfiguration()
+
+	fmt.Println("Application loaded successfully on port : ", appConfig.PORT)
 }
