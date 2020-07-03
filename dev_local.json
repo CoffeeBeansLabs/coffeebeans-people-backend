@@ -1,5 +1,6 @@
 {
   "PORT": "9000",
+  "BASE_URL": "/api/v1",
   "MONGO_SERVER": "localhost:27017",
   "MONGO_DATABASE": "test",
   "AWAKE_JWT_SIGNATURE": "4ce08fbe14554c15d252f08f31bf2a58",

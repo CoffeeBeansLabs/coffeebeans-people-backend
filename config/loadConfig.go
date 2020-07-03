@@ -12,6 +12,7 @@ const defaultLogLevel = "info"
 
 type Configuration struct {
 	PORT           string
+	BASE_URL       string
 	MONGO_SERVER   string
 	MONGO_DATABASE string
 	LogLevel       string `json:"log_level"`
