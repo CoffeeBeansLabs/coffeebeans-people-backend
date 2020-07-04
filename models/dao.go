@@ -14,5 +14,5 @@ type Dao interface {
 type ApiSvc interface {
 	RegisterUser(ctx context.Context, user User) error
 	LoginUser(ctx context.Context, email string, password string) (User, bool, error)
-	//EditUser(ctx context.Context, user User) error
+	EditUser(ctx context.Context, user User) error
 }
