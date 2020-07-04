@@ -28,7 +28,7 @@ func main() {
 		log.Fatal("unable to create mongo conn: ", err.Error())
 	}
 
-	apiSvc := api.ApiSvc{DbSvc:daoSvc}
+	apiSvc := api.ApiSvc{DbSvc: daoSvc}
 
 	authSvc, err := auth.NewService(ctx, appConfig.SECRET_KEY)
 	if err != nil {
@@ -37,7 +37,7 @@ func main() {
 
 	apiService := &router.API{
 		DaoService:  daoSvc,
-		ApiService: apiSvc,
+		ApiService:  apiSvc,
 		AuthService: authSvc,
 	}
 

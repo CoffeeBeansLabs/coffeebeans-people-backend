@@ -62,5 +62,4 @@ func APIMux(api *API) *chi.Mux {
 	})
 
 	return mux
-
 }

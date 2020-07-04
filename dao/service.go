@@ -8,7 +8,7 @@ import (
 )
 
 type Service struct {
-	MongoConn     *mongo.Database
+	MongoConn *mongo.Database
 }
 
 func NewService(ctx context.Context, mongoUri string, mongoDbName string) (*Service, error) {
@@ -25,6 +25,6 @@ func NewService(ctx context.Context, mongoUri string, mongoDbName string) (*Serv
 	}
 
 	return &Service{
-		MongoConn:     mongoConn.Database(mongoDbName),
+		MongoConn: mongoConn.Database(mongoDbName),
 	}, nil
 }
