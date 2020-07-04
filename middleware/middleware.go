@@ -6,7 +6,6 @@ import (
 	"coffeebeans-people-backend/models"
 	"coffeebeans-people-backend/utility"
 	"context"
-	"fmt"
 	"github.com/johnnadratowski/golang-neo4j-bolt-driver/log"
 	"net/http"
 )
@@ -35,6 +34,5 @@ func AuthenticateTokenMiddlewareHandler(authSvc auth.AuthSvc) func(http.Handler)
 
 // ContextWithUser returns a context with a Employee.
 func ContextWithUser(ctx context.Context, user models.User) context.Context {
-	fmt.Println("Humara user=====", user)
 	return context.WithValue(ctx, constants.USER_KEY, user)
 }
