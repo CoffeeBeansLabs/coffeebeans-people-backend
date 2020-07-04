@@ -1,6 +1,9 @@
 package utility
 
 import (
+	"coffeebeans-people-backend/constants"
+	"coffeebeans-people-backend/models"
+	"context"
 	"encoding/json"
 	"net/http"
 )
@@ -20,4 +23,14 @@ func NewJSONWriter(w http.ResponseWriter) JSONWriterFunc {
 // Write writes an interface as JSON.
 func (f JSONWriterFunc) Write(v interface{}, status int) {
 	f(v, status)
+}
+
+// UserFromContext returns a user from the given context.
+func UserFromContext(ctx context.Context) (*models.User, bool) {
+	if v := ctx.Value(constants.USER_KEY); v != nil {
+		if user, ok := v.(*models.User); ok {
+			return user, ok
+		}
+	}
+	return nil, false
 }

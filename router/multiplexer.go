@@ -5,6 +5,7 @@ import (
 	"coffeebeans-people-backend/auth"
 	"coffeebeans-people-backend/dao"
 	"coffeebeans-people-backend/handlers"
+	"coffeebeans-people-backend/middleware"
 	"github.com/go-chi/chi"
 	"github.com/rs/cors"
 	"net/http"
@@ -59,6 +60,11 @@ func APIMux(api *API) *chi.Mux {
 
 	mux.Route("/login", func(r chi.Router) {
 		r.Post("/", handlers.Login(&api.ApiService, api.AuthService))
+	})
+
+	mux.Route("/edit", func(r chi.Router)  {
+		r.Use(middleware.AuthenticateTokenMiddlewareHandler(api.AuthService))
+		r.Post("/profile", handlers.UpdateProfile(&api.ApiService))
 	})
 
 	return mux
