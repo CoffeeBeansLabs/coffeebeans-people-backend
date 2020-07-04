@@ -1,6 +1,7 @@
 package main
 
 import (
+	"coffeebeans-people-backend/api"
 	"coffeebeans-people-backend/auth"
 	"coffeebeans-people-backend/config"
 	"coffeebeans-people-backend/constants"
@@ -27,6 +28,8 @@ func main() {
 		log.Fatal("unable to create mongo conn: ", err.Error())
 	}
 
+	apiSvc := api.ApiSvc{DbSvc:daoSvc}
+
 	authSvc, err := auth.NewService(ctx, appConfig.SECRET_KEY)
 	if err != nil {
 		log.Error(err)
@@ -34,6 +37,7 @@ func main() {
 
 	apiService := &router.API{
 		DaoService:  daoSvc,
+		ApiService: apiSvc,
 		AuthService: authSvc,
 	}
 

@@ -1,6 +1,7 @@
 package router
 
 import (
+	"coffeebeans-people-backend/api"
 	"coffeebeans-people-backend/auth"
 	"coffeebeans-people-backend/dao"
 	"coffeebeans-people-backend/handlers"
@@ -12,6 +13,7 @@ import (
 // API is an API configuration.
 type API struct {
 	DaoService  *dao.Service
+	ApiService  api.ApiSvc
 	AuthService auth.AuthSvc
 }
 
@@ -52,7 +54,11 @@ func APIMux(api *API) *chi.Mux {
 	})
 
 	mux.Route("/register", func(r chi.Router) {
-		r.Post("/", handlers.CreateEmployee(api.DaoService))
+		r.Post("/", handlers.CreateEmployee(&api.ApiService))
+	})
+
+	mux.Route("/login", func(r chi.Router) {
+		r.Post("/", handlers.Login(api.DaoService, api.AuthService))
 	})
 
 	return mux

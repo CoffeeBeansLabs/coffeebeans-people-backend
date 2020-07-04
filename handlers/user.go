@@ -8,7 +8,7 @@ import (
 	"net/http"
 )
 
-func CreateEmployee(svc models.Dao) http.HandlerFunc {
+func CreateEmployee(apiSvc models.ApiSvc) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		var user models.User
 		err := json.NewDecoder(r.Body).Decode(&user)
@@ -20,7 +20,7 @@ func CreateEmployee(svc models.Dao) http.HandlerFunc {
 			return
 		}
 
-		err = svc.CreateUser(context.TODO(), user)
+		err = apiSvc.RegisterUser(context.TODO(), user)
 		if err != nil {
 			utility.NewJSONWriter(w).Write(models.Response{
 				Error:   err,
@@ -32,6 +32,6 @@ func CreateEmployee(svc models.Dao) http.HandlerFunc {
 		utility.NewJSONWriter(w).Write(models.Response{
 			Error:   nil,
 			Message: "User Created Successsfully",
-		}, http.StatusBadRequest)
+		}, http.StatusOK)
 	}
 }
