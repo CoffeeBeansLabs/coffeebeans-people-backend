@@ -40,6 +40,5 @@ func Login(svc models.ApiSvc, authSvc auth.AuthSvc) http.HandlerFunc {
 		}
 
 		utility.NewJSONWriter(w).Write(loginResponse, http.StatusOK)
-
 	}
 }
