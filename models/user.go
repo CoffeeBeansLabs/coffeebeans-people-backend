@@ -4,7 +4,10 @@ import "go.mongodb.org/mongo-driver/bson/primitive"
 
 type User struct {
 	EmployeeId        int64              `json:"employee_id,omitempty" bson:"employee_id,omitempty"`
-	Email             int64              `json:"number,omitempty" bson:"number,omitempty"`
+	Number            int64              `json:"number" bson:"number,omitempty"`
+	Email             string             `json:"email" bson:"email,omitempty"`
+	Name              string             `json:"name,omitempty" bson:"name,omitempty"`
+	Password          string             `json:"password,omitempty" bson:"password,omitempty"`
 	Gender            string             `json:"gender,omitempty" bson:"gender,omitempty"`
 	Role              string             `json:"role,omitempty" bson:"role,omitempty"`
 	Designation       string             `json:"designation,omitempty" bson:"designation,omitempty"`
@@ -15,8 +18,8 @@ type User struct {
 }
 
 type AdditionalDetail struct {
-	Graduation      EducationalDetails `json:"educational_details,omitempty" bson:"educational_details,omitempty"`
-	PostGradutation EducationalDetails `json:"educational_details,omitempty" bson:"educational_details,omitempty"`
+	Graduation      EducationalDetails `json:"grad_details,omitempty" bson:"grad_details,omitempty"`
+	PostGradutation EducationalDetails `json:"postgrad_detailsl_details,omitempty" bson:"postgrad_details,omitempty"`
 }
 
 type EducationalDetails struct {

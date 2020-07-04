@@ -1,15 +1,18 @@
 package router
 
 import (
+	"coffeebeans-people-backend/auth"
 	"coffeebeans-people-backend/dao"
+	"coffeebeans-people-backend/handlers"
 	"github.com/go-chi/chi"
-	"net/http"
 	"github.com/rs/cors"
+	"net/http"
 )
 
 // API is an API configuration.
 type API struct {
-	DaoService *dao.Service
+	DaoService  *dao.Service
+	AuthService auth.AuthSvc
 }
 
 // APIMux returns an API multiplexer.
@@ -46,6 +49,10 @@ func APIMux(api *API) *chi.Mux {
 			writer.WriteHeader(http.StatusOK)
 			_, _ = writer.Write([]byte("pong"))
 		})
+	})
+
+	mux.Route("/register", func(r chi.Router) {
+		r.Post("/", handlers.CreateEmployee(api.DaoService))
 	})
 
 	return mux

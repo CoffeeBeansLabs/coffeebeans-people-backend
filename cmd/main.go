@@ -1,18 +1,19 @@
 package main
 
 import (
+	"coffeebeans-people-backend/auth"
 	"coffeebeans-people-backend/config"
 	"coffeebeans-people-backend/constants"
 	"coffeebeans-people-backend/dao"
 	"coffeebeans-people-backend/router"
 	"context"
 	"fmt"
+	"github.com/go-chi/chi"
 	"github.com/johnnadratowski/golang-neo4j-bolt-driver/log"
 	"net/http"
-	"github.com/go-chi/chi"
 )
 
-func main()  {
+func main() {
 	ctx := context.Background()
 	ctx, cancel := context.WithCancel(ctx)
 	defer cancel()
@@ -26,8 +27,14 @@ func main()  {
 		log.Fatal("unable to create mongo conn: ", err.Error())
 	}
 
+	authSvc, err := auth.NewService(ctx, appConfig.SECRET_KEY)
+	if err != nil {
+		log.Error(err)
+	}
+
 	apiService := &router.API{
-		DaoService:        daoSvc,
+		DaoService:  daoSvc,
+		AuthService: authSvc,
 	}
 
 	mux.Mount(appConfig.BASE_URL, router.APIMux(apiService))
