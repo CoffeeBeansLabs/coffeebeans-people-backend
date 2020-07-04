@@ -20,6 +20,7 @@ func CreateEmployee(apiSvc models.ApiSvc) http.HandlerFunc {
 			return
 		}
 
+		user.Role = "ADMIN" //TODO ACCEPT FROM UI
 		err = apiSvc.RegisterUser(context.TODO(), user)
 		if err != nil {
 			utility.NewJSONWriter(w).Write(models.Response{

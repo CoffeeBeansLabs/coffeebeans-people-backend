@@ -40,3 +40,17 @@ func (service *Service) GetUserByEmployeeId(ctx context.Context, employeeId int6
 	}
 	return user, nil
 }
+
+func (service *Service) GetUserByCredentials(ctx context.Context, email string, password string) (models.User, error) {
+	user := models.User{}
+
+	collection := service.MongoConn.Collection("users")
+
+	doc := collection.FindOne(ctx, bson.M{"email": email, "password": password})
+
+	err := doc.Decode(&user)
+	if err != nil {
+		return user, err
+	}
+	return user, nil
+}
