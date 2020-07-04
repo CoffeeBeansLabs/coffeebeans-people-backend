@@ -3,6 +3,9 @@ package api
 import (
 	"coffeebeans-people-backend/models"
 	"context"
+	"encoding/json"
+	"fmt"
+	"reflect"
 )
 
 type ApiSvc struct {
@@ -27,9 +30,17 @@ func (apiSvc *ApiSvc) LoginUser(ctx context.Context, email string, password stri
 	}
 
 	isProfileComplete := isProfileComplete(user)
-
+	fmt.Println("COmppllle", isProfileComplete)
+	return user, nil
 }
 
 func isProfileComplete(user models.User) bool {
-	if len(user.)
+	var userMandatoryFields models.UserMandatoryFields
+
+	marshalledData, _ := json.Marshal(&user)
+
+	json.Unmarshal(marshalledData, &userMandatoryFields)
+
+	return reflect.DeepEqual(userMandatoryFields, models.UserMandatoryFields{})
+
 }

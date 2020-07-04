@@ -58,7 +58,7 @@ func APIMux(api *API) *chi.Mux {
 	})
 
 	mux.Route("/login", func(r chi.Router) {
-		r.Post("/", handlers.Login(api.DaoService, api.AuthService))
+		r.Post("/", handlers.Login(&api.ApiService, api.AuthService))
 	})
 
 	return mux

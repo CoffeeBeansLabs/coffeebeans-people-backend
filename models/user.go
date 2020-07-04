@@ -12,6 +12,7 @@ type User struct {
 	Role              string             `json:"role,omitempty" bson:"role,omitempty"`
 	Designation       string             `json:"designation,omitempty" bson:"designation,omitempty"`
 	DOJ               string             `json:"doj,omitempty" bson:"doj,omitempty"`
+	DOB               string             `json:"dob,omitempty" bson:"dob,omitempty"`
 	YearsOfExp        string             `json:"experience,omitempty" bson:"experience,omitempty"`
 	Id                primitive.ObjectID `json:"id,omitempty" bson:"_id,omitempty"`
 	AddtitionalDetail AdditionalDetail   `json:"additiona_detail,omitempty" bson:"additional_detail,omitempty"`
@@ -26,4 +27,12 @@ type EducationalDetails struct {
 	CollegeName string `json:"college_name,omitempty" bson:"college_name,omitempty"`
 	CGPA        int    `json:"cgpa,omitempty" bson:"cgpa,omitempty"`
 	PassoutYear int    `json:"passout_year,omitempty" bson:"passout_year,omitempty"`
+}
+
+type UserMandatoryFields struct {
+	Gender      string `json:"gender,omitempty" bson:"gender,omitempty"`
+	Designation string `json:"designation,omitempty" bson:"designation,omitempty"`
+	DOJ         string `json:"doj,omitempty" bson:"doj,omitempty"`
+	DOB         string `json:"dob,omitempty" bson:"dob,omitempty"`
+	YearsOfExp  string `json:"experience,omitempty" bson:"experience,omitempty"`
 }
