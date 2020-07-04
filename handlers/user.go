@@ -14,7 +14,7 @@ func CreateEmployee(apiSvc models.ApiSvc) http.HandlerFunc {
 		err := json.NewDecoder(r.Body).Decode(&user)
 		if err != nil {
 			utility.NewJSONWriter(w).Write(models.Response{
-				Error:   err,
+				Error:   err.Error(),
 				Message: "Error decoding request body",
 			}, http.StatusBadRequest)
 			return
@@ -24,14 +24,14 @@ func CreateEmployee(apiSvc models.ApiSvc) http.HandlerFunc {
 		err = apiSvc.RegisterUser(context.TODO(), user)
 		if err != nil {
 			utility.NewJSONWriter(w).Write(models.Response{
-				Error:   err,
+				Error:   err.Error(),
 				Message: "Error querying mongo",
 			}, http.StatusBadRequest)
 			return
 		}
 
 		utility.NewJSONWriter(w).Write(models.Response{
-			Error:   nil,
+			Error:   "",
 			Message: "User Created Successsfully",
 		}, http.StatusOK)
 	}

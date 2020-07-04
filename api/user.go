@@ -4,7 +4,6 @@ import (
 	"coffeebeans-people-backend/models"
 	"context"
 	"encoding/json"
-	"fmt"
 	"reflect"
 )
 
@@ -22,25 +21,25 @@ func (apiSvc *ApiSvc) RegisterUser(ctx context.Context, user models.User) error 
 	return nil
 }
 
-func (apiSvc *ApiSvc) LoginUser(ctx context.Context, email string, password string) (models.User, error) {
-
+func (apiSvc *ApiSvc) LoginUser(ctx context.Context, email string, password string) (models.User, bool, error) {
+	var isProfileComplete bool
 	user, err := apiSvc.DbSvc.GetUserByCredentials(ctx, email, password)
 	if err != nil {
-		return user, err
+		return user, isProfileComplete, err
 	}
 
-	isProfileComplete := isProfileComplete(user)
-	fmt.Println("COmppllle", isProfileComplete)
-	return user, nil
+	isProfileComplete = isProfileCompleted(user)
+
+	return user, isProfileComplete, nil
 }
 
-func isProfileComplete(user models.User) bool {
+func isProfileCompleted(user models.User) bool {
 	var userMandatoryFields models.UserMandatoryFields
 
 	marshalledData, _ := json.Marshal(&user)
 
 	json.Unmarshal(marshalledData, &userMandatoryFields)
 
-	return reflect.DeepEqual(userMandatoryFields, models.UserMandatoryFields{})
+	return !reflect.DeepEqual(userMandatoryFields, models.UserMandatoryFields{})
 
 }
