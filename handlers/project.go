@@ -20,7 +20,7 @@ func CreateProject(apiSvc models.ApiSvc) http.HandlerFunc {
 			return
 		}
 
-		err = apiSvc.CreateProject(context.TODO(), project)
+		err = apiSvc.CreateProjectByAdmin(context.TODO(), project)
 		if err != nil {
 			utility.NewJSONWriter(w).Write(models.Response{
 				Error:   "Mongo error",
