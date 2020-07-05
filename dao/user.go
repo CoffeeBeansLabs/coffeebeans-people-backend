@@ -11,22 +11,13 @@ import (
 func (service *Service) CreateUser(ctx context.Context, user models.User) error {
 
 	c := service.MongoConn.Collection("users")
-	model1 := mongo.IndexModel{
+	model := mongo.IndexModel{
 		Keys: bson.M{
 			"employee_id": user.EmployeeId,
 		},
 		Options: options.Index().SetUnique(true),
 	}
-
-	model2 := mongo.IndexModel{
-		Keys: bson.M{
-			"email": user.Email,
-		},
-		Options: options.Index().SetUnique(true),
-	}
-
-	c.Indexes().CreateOne(ctx, model1)
-	c.Indexes().CreateOne(ctx, model2)
+	c.Indexes().CreateOne(ctx, model)
 
 	_, err := c.InsertOne(ctx, user)
 	if err != nil {
