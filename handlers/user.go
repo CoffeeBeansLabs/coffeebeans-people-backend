@@ -55,6 +55,14 @@ func GetUsers(apiSvc models.ApiSvc) http.HandlerFunc {
 			params["skill"] = skill
 		}
 
-		//apiSvc.
+		users, err := apiSvc.GetUsers(r.Context(), params)
+		if err != nil {
+			utility.NewJSONWriter(w).Write(models.Response{
+				Error:   err.Error(),
+				Message: "Mongo error",
+			}, http.StatusBadRequest)
+		}
+
+		utility.NewJSONWriter(w).Write(users, http.StatusOK)
 	}
 }
