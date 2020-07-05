@@ -54,3 +54,32 @@ func (service *Service) GetUserByCredentials(ctx context.Context, email string, 
 	}
 	return user, nil
 }
+
+func (service *Service) GetAllUsers(ctx context.Context, params map[string]interface{}) ([]models.User, error) {
+	users := make([]models.User, 0)
+	collection := service.MongoConn.Collection("users")
+
+	filter := bson.M{}
+
+	cur, err := collection.Find(ctx, filter)
+	if err != nil {
+		return users, err
+	}
+	defer cur.Close(ctx)
+
+	for cur.Next(context.Background()) {
+		user := models.User{}
+
+		err := cur.Decode(&user)
+		if err != nil {
+			return users, err
+		}
+
+		users = append(users, user)
+	}
+	if err := cur.Err(); err != nil {
+		return users, err
+	}
+
+	return users, nil
+}

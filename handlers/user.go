@@ -25,7 +25,7 @@ func CreateEmployee(apiSvc models.ApiSvc) http.HandlerFunc {
 		if err != nil {
 			utility.NewJSONWriter(w).Write(models.Response{
 				Error:   "Mongo error",
-				Message: "Employee Id already exists. Check you employee id",
+				Message: "Employee Id or email already exists",
 			}, http.StatusBadRequest)
 			return
 		}

@@ -4,6 +4,8 @@ import (
 	"coffeebeans-people-backend/models"
 	"context"
 	"encoding/json"
+	"errors"
+	"log"
 	"reflect"
 )
 
@@ -13,12 +15,34 @@ type ApiSvc struct {
 
 func (apiSvc *ApiSvc) RegisterUser(ctx context.Context, user models.User) error {
 
-	err := apiSvc.DbSvc.CreateUser(ctx, user)
+	users, err := apiSvc.DbSvc.GetAllUsers(ctx, nil)
 	if err != nil {
+		log.Println("Error querying mongo", err)
+		return err
+	}
+
+	isUnique := checkUniqueEmail(users, user.Email)
+	if !isUnique {
+		return errors.New("Email already exists try with new email")
+	}
+
+	err = apiSvc.DbSvc.CreateUser(ctx, user)
+	if err != nil {
+		log.Println("Error querying mongo", err)
 		return err
 	}
 
 	return nil
+}
+
+func checkUniqueEmail(users []models.User, email string) bool {
+	for _, user := range users {
+		if user.Email == email {
+			return false
+		}
+	}
+
+	return true
 }
 
 func (apiSvc *ApiSvc) LoginUser(ctx context.Context, email string, password string) (models.User, bool, error) {
