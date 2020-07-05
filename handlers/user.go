@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"coffeebeans-people-backend/constants"
 	"coffeebeans-people-backend/models"
 	"coffeebeans-people-backend/utility"
 	"context"
@@ -8,7 +9,7 @@ import (
 	"net/http"
 )
 
-func CreateEmployee(apiSvc models.ApiSvc) http.HandlerFunc {
+func CreateUser(apiSvc models.ApiSvc) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		var user models.User
 		err := json.NewDecoder(r.Body).Decode(&user)
@@ -34,5 +35,26 @@ func CreateEmployee(apiSvc models.ApiSvc) http.HandlerFunc {
 			Error:   "",
 			Message: "User Created Successsfully",
 		}, http.StatusOK)
+	}
+}
+
+func GetUsers(apiSvc models.ApiSvc) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		userFromContext := r.Context().Value(constants.USER_KEY).(models.User)
+		if len(userFromContext.Email) < 1 {
+			utility.NewJSONWriter(w).Write(models.Response{
+				Error:   "Unauthorized",
+				Message: "Incorrect access token",
+			}, http.StatusBadRequest)
+			return
+		}
+		params := make(map[string]interface{})
+		skill := r.FormValue("skill")
+
+		if len(skill) > 0 {
+			params["skill"] = skill
+		}
+
+		//apiSvc.
 	}
 }

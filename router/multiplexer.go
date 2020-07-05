@@ -55,7 +55,7 @@ func APIMux(api *API) *chi.Mux {
 	})
 
 	mux.Route("/register", func(r chi.Router) {
-		r.Post("/", handlers.CreateEmployee(&api.ApiService))
+		r.Post("/", handlers.CreateUser(&api.ApiService))
 	})
 
 	mux.Route("/login", func(r chi.Router) {
@@ -80,8 +80,14 @@ func APIMux(api *API) *chi.Mux {
 		r.Post("/", handlers.Logout())
 	})
 
-	mux.Route("/createProject", func(r chi.Router) {
-		r.Post("/", handlers.CreateProject(&api.ApiService))
+	mux.Route("/create", func(r chi.Router) {
+		r.Use(middleware.AuthenticateTokenMiddlewareHandler(api.AuthService))
+		r.Post("/project", handlers.CreateProject(&api.ApiService))
+	})
+
+	mux.Route("/users", func(r chi.Router) {
+		r.Use(middleware.AuthenticateTokenMiddlewareHandler(api.AuthService))
+		r.Get("/", handlers.GetUsers(&api.ApiService))
 	})
 
 	return mux

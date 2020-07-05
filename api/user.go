@@ -67,3 +67,12 @@ func isProfileCompleted(user models.User) bool {
 	return !reflect.DeepEqual(userMandatoryFields, models.UserMandatoryFields{})
 
 }
+
+func (apiSvc *ApiSvc) GetUsers(ctx context.Context, params map[string]interface{}) ([]models.User, error) {
+	users, err := apiSvc.DbSvc.GetAllUsers(ctx, params)
+	if err != nil {
+		return users, err
+	}
+
+	return users, nil
+}

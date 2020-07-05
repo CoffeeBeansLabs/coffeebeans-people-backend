@@ -61,6 +61,12 @@ func (service *Service) GetAllUsers(ctx context.Context, params map[string]inter
 
 	filter := bson.M{}
 
+	if params != nil {
+		if param, ok := params["skill"]; ok {
+			filter["skill"] = param
+		}
+	}
+
 	cur, err := collection.Find(ctx, filter)
 	if err != nil {
 		return users, err

@@ -18,4 +18,5 @@ type ApiSvc interface {
 	LoginUser(ctx context.Context, email string, password string) (User, bool, error)
 	EditUser(ctx context.Context, user User) error
 	CreateProjectByAdmin(ctx context.Context, project Project) error
+	GetUsers(ctx context.Context, params map[string]interface{}) ([]User, error)
 }
