@@ -15,4 +15,6 @@ type ApiSvc interface {
 	RegisterUser(ctx context.Context, user User) error
 	LoginUser(ctx context.Context, email string, password string) (User, bool, error)
 	EditUser(ctx context.Context, user User) error
+	CreateProject(ctx context.Context, project Project) error
+	EditProject(ctx context.Context, project Project) error
 }

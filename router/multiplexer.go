@@ -80,5 +80,9 @@ func APIMux(api *API) *chi.Mux {
 		r.Post("/", handlers.Logout())
 	})
 
+	mux.Route("/createProject", func(r chi.Router) {
+		r.Post("/", handlers.CreateProject(&api.ApiService))
+	})
+
 	return mux
 }
