@@ -13,7 +13,7 @@ type User struct {
 	Designation       string             `json:"designation,omitempty" bson:"designation,omitempty"`
 	DOJ               string             `json:"doj,omitempty" bson:"doj,omitempty"`
 	DOB               string             `json:"dob,omitempty" bson:"dob,omitempty"`
-	Skills            []string           `json:"skills,omitempty" bson:"skills,omitempty"`
+	Skill             string             `json:"skills,omitempty" bson:"skills,omitempty"`
 	YearsOfExp        string             `json:"experience,omitempty" bson:"experience,omitempty"`
 	Id                primitive.ObjectID `json:"id,omitempty" bson:"_id,omitempty"`
 	AddtitionalDetail AdditionalDetail   `json:"additiona_detail,omitempty" bson:"additional_detail,omitempty"`
@@ -36,5 +36,5 @@ type UserMandatoryFields struct {
 	DOJ         string `json:"doj,omitempty" bson:"doj,omitempty"`
 	DOB         string `json:"dob,omitempty" bson:"dob,omitempty"`
 	YearsOfExp  string `json:"experience,omitempty" bson:"experience,omitempty"`
-	Skills      string `json:"skills,omitempty" bson:"skills,omitempty"`
+	Skill       string `json:"skills,omitempty" bson:"skills,omitempty"`
 }

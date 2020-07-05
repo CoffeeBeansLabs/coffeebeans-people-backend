@@ -13,4 +13,3 @@ const INVALID_TOKEN_MSG_TOKEN_EXPIRED = "Invalid authorization token - Token is 
 const SUCCESS_TOKEN = "Success"
 
 const USER_KEY = "employee"
-

@@ -30,7 +30,7 @@ func UpdateProfile(apiSvc models.ApiSvc) http.HandlerFunc {
 		}
 
 		err = apiSvc.EditUser(r.Context(), body)
-		if err != nil{
+		if err != nil {
 			utility.NewJSONWriter(w).Write(models.Response{
 				Error:   err.Error(),
 				Message: "Error querying mongo",

@@ -45,7 +45,7 @@ func (svc *Service) AuthenticateToken(jwtTokenString string) (*models.User, stri
 	return &user, constants.SUCCESS_TOKEN, err
 }
 
-func GetUserFromTokenClaims(claims map[string]interface{}) (models.User) {
+func GetUserFromTokenClaims(claims map[string]interface{}) models.User {
 	var user models.User
 	employeeMapFromToken := claims["User"].(map[string]interface{})
 
@@ -61,4 +61,3 @@ func GetUserFromTokenClaims(claims map[string]interface{}) (models.User) {
 
 	return user
 }
-

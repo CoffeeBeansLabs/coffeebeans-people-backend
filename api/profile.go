@@ -13,4 +13,3 @@ func (apiSvc *ApiSvc) EditUser(ctx context.Context, user models.User) error {
 
 	return nil
 }
-
