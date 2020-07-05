@@ -24,8 +24,8 @@ func CreateEmployee(apiSvc models.ApiSvc) http.HandlerFunc {
 		err = apiSvc.RegisterUser(context.TODO(), user)
 		if err != nil {
 			utility.NewJSONWriter(w).Write(models.Response{
-				Error:   err.Error(),
-				Message: "Error querying mongo",
+				Error:   "Mongo error",
+				Message: "Employee Id already exists. Check you employee id",
 			}, http.StatusBadRequest)
 			return
 		}

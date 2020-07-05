@@ -11,7 +11,7 @@ type Service struct {
 
 type AuthSvc interface {
 	GenerateToken(user *models.User) (string, error)
-	//AuthenticateToken(jwtTokenString string) (*models.User, string, error)
+	AuthenticateToken(jwtTokenString string) (*models.User, string, error)
 }
 
 func NewService(ctx context.Context, secretKey string) (*Service, error) {
