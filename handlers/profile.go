@@ -38,6 +38,6 @@ func UpdateProfile(apiSvc models.ApiSvc) http.HandlerFunc {
 			return
 		}
 
-		utility.NewJSONWriter(w).Write([]byte("Profile got updated successfully"), http.StatusOK)
+		utility.NewJSONWriter(w).Write([]byte("Profile updated successfully"), http.StatusOK)
 	}
 }

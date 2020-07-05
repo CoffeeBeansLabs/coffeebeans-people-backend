@@ -64,6 +64,8 @@ func (service *Service) GetAllUsers(ctx context.Context, params map[string]inter
 	if params != nil {
 		if param, ok := params["skill"]; ok {
 			filter["skill"] = param
+		} else if param, ok := params["id"]; ok {
+			filter["employee_id"] = param
 		}
 	}
 

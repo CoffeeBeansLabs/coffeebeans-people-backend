@@ -7,6 +7,7 @@ import (
 	"context"
 	"encoding/json"
 	"net/http"
+	"strconv"
 )
 
 func CreateUser(apiSvc models.ApiSvc) http.HandlerFunc {
@@ -50,9 +51,14 @@ func GetUsers(apiSvc models.ApiSvc) http.HandlerFunc {
 		}
 		params := make(map[string]interface{})
 		skill := r.FormValue("skill")
+		id, _ := strconv.ParseInt(r.FormValue("id"), 10, 64)
 
 		if len(skill) > 0 {
 			params["skill"] = skill
+		}
+
+		if len(r.FormValue("id")) > 0 {
+			params["id"] = id
 		}
 
 		users, err := apiSvc.GetUsers(r.Context(), params)
