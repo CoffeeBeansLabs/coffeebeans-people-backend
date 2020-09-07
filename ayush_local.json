@@ -1,5 +1,5 @@
 {
-  "PORT": "9000",
+  "PORT": "9004",
   "BASE_URL": "/api/v1",
   "MONGO_SERVER": "localhost:27017",
   "MONGO_DATABASE": "cbPeople",
